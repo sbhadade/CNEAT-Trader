@@ -15,7 +15,7 @@
 #include <mutex>
 
 // External
-#include <CANN.hpp>
+#include <cann.h>
 
 // Project
 

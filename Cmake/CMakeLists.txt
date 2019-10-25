@@ -11,16 +11,19 @@ include_directories(../include ../src)
 find_package(Threads)
 
 add_executable(CNEAT_Trader
-        ../include/CANN.hpp
-        ../include/CNEAT.hpp
         ../include/convertcsv.hpp
         ../include/ErrorLog.hpp
         ../src/Main.cpp
         ../src/OHLCVManager.hpp
         ../src/TraderPool.hpp
+        ../src/TraderPool.cpp
         ../src/EvalFunctions.cpp
-        ../src/EvalFunctions.hpp
-        ../src/ThreadSync.hpp ../src/cneat.cpp ../src/cneat.h)
+        ../src/EvalFunctions.h
+        ../src/ThreadSync.hpp
+        ../src/ThreadSync.cpp
+        ../src/cneat.cpp
+        ../src/cneat.h
+        ../src/cann.cpp
+        ../src/cann.h)
 
-target_link_libraries(CNEAT_Trader ${CMAKE_THREAD_LIBS_INIT}
-        )
+target_link_libraries(CNEAT_Trader ${CMAKE_THREAD_LIBS_INIT})
