@@ -1,0 +1,5 @@
+https://stackoverflow.com/questions/36691759/trying-to-understand-c-duplicate-symbols-for-architecture-x86-64
+
+Lösung:
+CANN.cpp und CNEAT.cpp erstellen, und alle implementationen aus den Headern in die Source einbauen (So wie ThreadSync, TraderPool etc.).
+Andernfalls wird die volle funktion immer kopiert, was zu mehreren Kopien führt.

@@ -1,0 +1,6 @@
+{
+  "hidden": 5,
+  "connection_type": "random",
+  "connect_chance": 0.2,
+  "template_mutate": 10
+}

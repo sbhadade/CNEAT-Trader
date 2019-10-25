@@ -1,0 +1,1 @@
+/usr/bin/c++   -O0 -O3 -DNDEBUG   CMakeFiles/CNEAT_Trader.dir/home/alcon/Desktop/CNEAT-Trader/src/Main.cpp.o CMakeFiles/CNEAT_Trader.dir/home/alcon/Desktop/CNEAT-Trader/src/EvalFunctions.cpp.o CMakeFiles/CNEAT_Trader.dir/home/alcon/Desktop/CNEAT-Trader/include/CNEAT/cneat.cpp.o  -o CNEAT_Trader -lpthread 

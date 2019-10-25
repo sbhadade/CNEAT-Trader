@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="CNEAT_Trader"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/alcon/Desktop/CNEAT-Trader/Cmake/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/alcon/Desktop/CNEAT-Trader/Cmake/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/alcon/Desktop/CNEAT-Trader/Cmake/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/alcon/Desktop/CNEAT-Trader/Cmake/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/alcon/Desktop/CNEAT-Trader/Cmake/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/home/alcon/Desktop/CNEAT-Trader/Cmake/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/alcon/Desktop/CNEAT-Trader/Cmake/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/alcon/Desktop/CNEAT-Trader/Cmake/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/alcon/Desktop/CNEAT-Trader/Cmake/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/alcon/Desktop/CNEAT-Trader/Cmake/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="CNEAT_Trader">
+				<Option output="/home/alcon/Desktop/CNEAT-Trader/Cmake/cmake-build-debug/CNEAT_Trader" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/alcon/Desktop/CNEAT-Trader/Cmake/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/alcon/Desktop/CNEAT-Trader/Cmake/../include"/>
+					<Add directory="/home/alcon/Desktop/CNEAT-Trader/Cmake/../src"/>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/alcon/Desktop/CNEAT-Trader/Cmake/cmake-build-debug/Makefile&quot;  VERBOSE=1 CNEAT_Trader"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/alcon/Desktop/CNEAT-Trader/Cmake/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/alcon/Desktop/CNEAT-Trader/Cmake/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/alcon/Desktop/CNEAT-Trader/Cmake/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="CNEAT_Trader/fast">
+				<Option output="/home/alcon/Desktop/CNEAT-Trader/Cmake/cmake-build-debug/CNEAT_Trader" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/alcon/Desktop/CNEAT-Trader/Cmake/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/alcon/Desktop/CNEAT-Trader/Cmake/../include"/>
+					<Add directory="/home/alcon/Desktop/CNEAT-Trader/Cmake/../src"/>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/alcon/Desktop/CNEAT-Trader/Cmake/cmake-build-debug/Makefile&quot;  VERBOSE=1 CNEAT_Trader/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/alcon/Desktop/CNEAT-Trader/Cmake/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/alcon/Desktop/CNEAT-Trader/Cmake/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/alcon/Desktop/CNEAT-Trader/Cmake/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/home/alcon/Desktop/CNEAT-Trader/Cmake/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/alcon/Desktop/CNEAT-Trader/Cmake/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/alcon/Desktop/CNEAT-Trader/Cmake/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/alcon/Desktop/CNEAT-Trader/Cmake/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/alcon/Desktop/CNEAT-Trader/Cmake/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/alcon/Desktop/CNEAT-Trader/include/CANN.hpp">
+			<Option target="CNEAT_Trader"/>
+		</Unit>
+		<Unit filename="/home/alcon/Desktop/CNEAT-Trader/include/CNEAT.hpp">
+			<Option target="CNEAT_Trader"/>
+		</Unit>
+		<Unit filename="/home/alcon/Desktop/CNEAT-Trader/include/CNEAT/cneat.cpp">
+			<Option target="CNEAT_Trader"/>
+		</Unit>
+		<Unit filename="/home/alcon/Desktop/CNEAT-Trader/include/CNEAT/cneat.h">
+			<Option target="CNEAT_Trader"/>
+		</Unit>
+		<Unit filename="/home/alcon/Desktop/CNEAT-Trader/include/ErrorLog.hpp">
+			<Option target="CNEAT_Trader"/>
+		</Unit>
+		<Unit filename="/home/alcon/Desktop/CNEAT-Trader/include/convertcsv.hpp">
+			<Option target="CNEAT_Trader"/>
+		</Unit>
+		<Unit filename="/home/alcon/Desktop/CNEAT-Trader/src/EvalFunctions.cpp">
+			<Option target="CNEAT_Trader"/>
+		</Unit>
+		<Unit filename="/home/alcon/Desktop/CNEAT-Trader/src/EvalFunctions.hpp">
+			<Option target="CNEAT_Trader"/>
+		</Unit>
+		<Unit filename="/home/alcon/Desktop/CNEAT-Trader/src/Main.cpp">
+			<Option target="CNEAT_Trader"/>
+		</Unit>
+		<Unit filename="/home/alcon/Desktop/CNEAT-Trader/src/OHLCVManager.hpp">
+			<Option target="CNEAT_Trader"/>
+		</Unit>
+		<Unit filename="/home/alcon/Desktop/CNEAT-Trader/src/ThreadSync.hpp">
+			<Option target="CNEAT_Trader"/>
+		</Unit>
+		<Unit filename="/home/alcon/Desktop/CNEAT-Trader/src/TraderPool.hpp">
+			<Option target="CNEAT_Trader"/>
+		</Unit>
+		<Unit filename="/home/alcon/Desktop/CNEAT-Trader/Cmake/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

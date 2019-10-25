@@ -1,0 +1,9 @@
+{
+  "population": 120,
+  "delta_disjoint": 1.0,
+  "delta_weights": 0.7,
+  "delta_threshold": 2.0,
+  "stale_species": 20,
+  "survival_threshhold": 0.4,
+  "min_survivors": 2
+}
