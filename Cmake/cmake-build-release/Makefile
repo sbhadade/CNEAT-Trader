@@ -123,33 +123,6 @@ CNEAT_Trader/fast:
 	$(MAKE) -f CMakeFiles/CNEAT_Trader.dir/build.make CMakeFiles/CNEAT_Trader.dir/build
 .PHONY : CNEAT_Trader/fast
 
-home/alcon/Desktop/CNEAT-Trader/include/CNEAT/cneat.o: home/alcon/Desktop/CNEAT-Trader/include/CNEAT/cneat.cpp.o
-
-.PHONY : home/alcon/Desktop/CNEAT-Trader/include/CNEAT/cneat.o
-
-# target to build an object file
-home/alcon/Desktop/CNEAT-Trader/include/CNEAT/cneat.cpp.o:
-	$(MAKE) -f CMakeFiles/CNEAT_Trader.dir/build.make CMakeFiles/CNEAT_Trader.dir/home/alcon/Desktop/CNEAT-Trader/include/CNEAT/cneat.cpp.o
-.PHONY : home/alcon/Desktop/CNEAT-Trader/include/CNEAT/cneat.cpp.o
-
-home/alcon/Desktop/CNEAT-Trader/include/CNEAT/cneat.i: home/alcon/Desktop/CNEAT-Trader/include/CNEAT/cneat.cpp.i
-
-.PHONY : home/alcon/Desktop/CNEAT-Trader/include/CNEAT/cneat.i
-
-# target to preprocess a source file
-home/alcon/Desktop/CNEAT-Trader/include/CNEAT/cneat.cpp.i:
-	$(MAKE) -f CMakeFiles/CNEAT_Trader.dir/build.make CMakeFiles/CNEAT_Trader.dir/home/alcon/Desktop/CNEAT-Trader/include/CNEAT/cneat.cpp.i
-.PHONY : home/alcon/Desktop/CNEAT-Trader/include/CNEAT/cneat.cpp.i
-
-home/alcon/Desktop/CNEAT-Trader/include/CNEAT/cneat.s: home/alcon/Desktop/CNEAT-Trader/include/CNEAT/cneat.cpp.s
-
-.PHONY : home/alcon/Desktop/CNEAT-Trader/include/CNEAT/cneat.s
-
-# target to generate assembly for a file
-home/alcon/Desktop/CNEAT-Trader/include/CNEAT/cneat.cpp.s:
-	$(MAKE) -f CMakeFiles/CNEAT_Trader.dir/build.make CMakeFiles/CNEAT_Trader.dir/home/alcon/Desktop/CNEAT-Trader/include/CNEAT/cneat.cpp.s
-.PHONY : home/alcon/Desktop/CNEAT-Trader/include/CNEAT/cneat.cpp.s
-
 home/alcon/Desktop/CNEAT-Trader/src/EvalFunctions.o: home/alcon/Desktop/CNEAT-Trader/src/EvalFunctions.cpp.o
 
 .PHONY : home/alcon/Desktop/CNEAT-Trader/src/EvalFunctions.o
@@ -204,6 +177,114 @@ home/alcon/Desktop/CNEAT-Trader/src/Main.cpp.s:
 	$(MAKE) -f CMakeFiles/CNEAT_Trader.dir/build.make CMakeFiles/CNEAT_Trader.dir/home/alcon/Desktop/CNEAT-Trader/src/Main.cpp.s
 .PHONY : home/alcon/Desktop/CNEAT-Trader/src/Main.cpp.s
 
+home/alcon/Desktop/CNEAT-Trader/src/ThreadSync.o: home/alcon/Desktop/CNEAT-Trader/src/ThreadSync.cpp.o
+
+.PHONY : home/alcon/Desktop/CNEAT-Trader/src/ThreadSync.o
+
+# target to build an object file
+home/alcon/Desktop/CNEAT-Trader/src/ThreadSync.cpp.o:
+	$(MAKE) -f CMakeFiles/CNEAT_Trader.dir/build.make CMakeFiles/CNEAT_Trader.dir/home/alcon/Desktop/CNEAT-Trader/src/ThreadSync.cpp.o
+.PHONY : home/alcon/Desktop/CNEAT-Trader/src/ThreadSync.cpp.o
+
+home/alcon/Desktop/CNEAT-Trader/src/ThreadSync.i: home/alcon/Desktop/CNEAT-Trader/src/ThreadSync.cpp.i
+
+.PHONY : home/alcon/Desktop/CNEAT-Trader/src/ThreadSync.i
+
+# target to preprocess a source file
+home/alcon/Desktop/CNEAT-Trader/src/ThreadSync.cpp.i:
+	$(MAKE) -f CMakeFiles/CNEAT_Trader.dir/build.make CMakeFiles/CNEAT_Trader.dir/home/alcon/Desktop/CNEAT-Trader/src/ThreadSync.cpp.i
+.PHONY : home/alcon/Desktop/CNEAT-Trader/src/ThreadSync.cpp.i
+
+home/alcon/Desktop/CNEAT-Trader/src/ThreadSync.s: home/alcon/Desktop/CNEAT-Trader/src/ThreadSync.cpp.s
+
+.PHONY : home/alcon/Desktop/CNEAT-Trader/src/ThreadSync.s
+
+# target to generate assembly for a file
+home/alcon/Desktop/CNEAT-Trader/src/ThreadSync.cpp.s:
+	$(MAKE) -f CMakeFiles/CNEAT_Trader.dir/build.make CMakeFiles/CNEAT_Trader.dir/home/alcon/Desktop/CNEAT-Trader/src/ThreadSync.cpp.s
+.PHONY : home/alcon/Desktop/CNEAT-Trader/src/ThreadSync.cpp.s
+
+home/alcon/Desktop/CNEAT-Trader/src/TraderPool.o: home/alcon/Desktop/CNEAT-Trader/src/TraderPool.cpp.o
+
+.PHONY : home/alcon/Desktop/CNEAT-Trader/src/TraderPool.o
+
+# target to build an object file
+home/alcon/Desktop/CNEAT-Trader/src/TraderPool.cpp.o:
+	$(MAKE) -f CMakeFiles/CNEAT_Trader.dir/build.make CMakeFiles/CNEAT_Trader.dir/home/alcon/Desktop/CNEAT-Trader/src/TraderPool.cpp.o
+.PHONY : home/alcon/Desktop/CNEAT-Trader/src/TraderPool.cpp.o
+
+home/alcon/Desktop/CNEAT-Trader/src/TraderPool.i: home/alcon/Desktop/CNEAT-Trader/src/TraderPool.cpp.i
+
+.PHONY : home/alcon/Desktop/CNEAT-Trader/src/TraderPool.i
+
+# target to preprocess a source file
+home/alcon/Desktop/CNEAT-Trader/src/TraderPool.cpp.i:
+	$(MAKE) -f CMakeFiles/CNEAT_Trader.dir/build.make CMakeFiles/CNEAT_Trader.dir/home/alcon/Desktop/CNEAT-Trader/src/TraderPool.cpp.i
+.PHONY : home/alcon/Desktop/CNEAT-Trader/src/TraderPool.cpp.i
+
+home/alcon/Desktop/CNEAT-Trader/src/TraderPool.s: home/alcon/Desktop/CNEAT-Trader/src/TraderPool.cpp.s
+
+.PHONY : home/alcon/Desktop/CNEAT-Trader/src/TraderPool.s
+
+# target to generate assembly for a file
+home/alcon/Desktop/CNEAT-Trader/src/TraderPool.cpp.s:
+	$(MAKE) -f CMakeFiles/CNEAT_Trader.dir/build.make CMakeFiles/CNEAT_Trader.dir/home/alcon/Desktop/CNEAT-Trader/src/TraderPool.cpp.s
+.PHONY : home/alcon/Desktop/CNEAT-Trader/src/TraderPool.cpp.s
+
+home/alcon/Desktop/CNEAT-Trader/src/cann.o: home/alcon/Desktop/CNEAT-Trader/src/cann.cpp.o
+
+.PHONY : home/alcon/Desktop/CNEAT-Trader/src/cann.o
+
+# target to build an object file
+home/alcon/Desktop/CNEAT-Trader/src/cann.cpp.o:
+	$(MAKE) -f CMakeFiles/CNEAT_Trader.dir/build.make CMakeFiles/CNEAT_Trader.dir/home/alcon/Desktop/CNEAT-Trader/src/cann.cpp.o
+.PHONY : home/alcon/Desktop/CNEAT-Trader/src/cann.cpp.o
+
+home/alcon/Desktop/CNEAT-Trader/src/cann.i: home/alcon/Desktop/CNEAT-Trader/src/cann.cpp.i
+
+.PHONY : home/alcon/Desktop/CNEAT-Trader/src/cann.i
+
+# target to preprocess a source file
+home/alcon/Desktop/CNEAT-Trader/src/cann.cpp.i:
+	$(MAKE) -f CMakeFiles/CNEAT_Trader.dir/build.make CMakeFiles/CNEAT_Trader.dir/home/alcon/Desktop/CNEAT-Trader/src/cann.cpp.i
+.PHONY : home/alcon/Desktop/CNEAT-Trader/src/cann.cpp.i
+
+home/alcon/Desktop/CNEAT-Trader/src/cann.s: home/alcon/Desktop/CNEAT-Trader/src/cann.cpp.s
+
+.PHONY : home/alcon/Desktop/CNEAT-Trader/src/cann.s
+
+# target to generate assembly for a file
+home/alcon/Desktop/CNEAT-Trader/src/cann.cpp.s:
+	$(MAKE) -f CMakeFiles/CNEAT_Trader.dir/build.make CMakeFiles/CNEAT_Trader.dir/home/alcon/Desktop/CNEAT-Trader/src/cann.cpp.s
+.PHONY : home/alcon/Desktop/CNEAT-Trader/src/cann.cpp.s
+
+home/alcon/Desktop/CNEAT-Trader/src/cneat.o: home/alcon/Desktop/CNEAT-Trader/src/cneat.cpp.o
+
+.PHONY : home/alcon/Desktop/CNEAT-Trader/src/cneat.o
+
+# target to build an object file
+home/alcon/Desktop/CNEAT-Trader/src/cneat.cpp.o:
+	$(MAKE) -f CMakeFiles/CNEAT_Trader.dir/build.make CMakeFiles/CNEAT_Trader.dir/home/alcon/Desktop/CNEAT-Trader/src/cneat.cpp.o
+.PHONY : home/alcon/Desktop/CNEAT-Trader/src/cneat.cpp.o
+
+home/alcon/Desktop/CNEAT-Trader/src/cneat.i: home/alcon/Desktop/CNEAT-Trader/src/cneat.cpp.i
+
+.PHONY : home/alcon/Desktop/CNEAT-Trader/src/cneat.i
+
+# target to preprocess a source file
+home/alcon/Desktop/CNEAT-Trader/src/cneat.cpp.i:
+	$(MAKE) -f CMakeFiles/CNEAT_Trader.dir/build.make CMakeFiles/CNEAT_Trader.dir/home/alcon/Desktop/CNEAT-Trader/src/cneat.cpp.i
+.PHONY : home/alcon/Desktop/CNEAT-Trader/src/cneat.cpp.i
+
+home/alcon/Desktop/CNEAT-Trader/src/cneat.s: home/alcon/Desktop/CNEAT-Trader/src/cneat.cpp.s
+
+.PHONY : home/alcon/Desktop/CNEAT-Trader/src/cneat.s
+
+# target to generate assembly for a file
+home/alcon/Desktop/CNEAT-Trader/src/cneat.cpp.s:
+	$(MAKE) -f CMakeFiles/CNEAT_Trader.dir/build.make CMakeFiles/CNEAT_Trader.dir/home/alcon/Desktop/CNEAT-Trader/src/cneat.cpp.s
+.PHONY : home/alcon/Desktop/CNEAT-Trader/src/cneat.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -213,15 +294,24 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... CNEAT_Trader"
 	@echo "... edit_cache"
-	@echo "... home/alcon/Desktop/CNEAT-Trader/include/CNEAT/cneat.o"
-	@echo "... home/alcon/Desktop/CNEAT-Trader/include/CNEAT/cneat.i"
-	@echo "... home/alcon/Desktop/CNEAT-Trader/include/CNEAT/cneat.s"
 	@echo "... home/alcon/Desktop/CNEAT-Trader/src/EvalFunctions.o"
 	@echo "... home/alcon/Desktop/CNEAT-Trader/src/EvalFunctions.i"
 	@echo "... home/alcon/Desktop/CNEAT-Trader/src/EvalFunctions.s"
 	@echo "... home/alcon/Desktop/CNEAT-Trader/src/Main.o"
 	@echo "... home/alcon/Desktop/CNEAT-Trader/src/Main.i"
 	@echo "... home/alcon/Desktop/CNEAT-Trader/src/Main.s"
+	@echo "... home/alcon/Desktop/CNEAT-Trader/src/ThreadSync.o"
+	@echo "... home/alcon/Desktop/CNEAT-Trader/src/ThreadSync.i"
+	@echo "... home/alcon/Desktop/CNEAT-Trader/src/ThreadSync.s"
+	@echo "... home/alcon/Desktop/CNEAT-Trader/src/TraderPool.o"
+	@echo "... home/alcon/Desktop/CNEAT-Trader/src/TraderPool.i"
+	@echo "... home/alcon/Desktop/CNEAT-Trader/src/TraderPool.s"
+	@echo "... home/alcon/Desktop/CNEAT-Trader/src/cann.o"
+	@echo "... home/alcon/Desktop/CNEAT-Trader/src/cann.i"
+	@echo "... home/alcon/Desktop/CNEAT-Trader/src/cann.s"
+	@echo "... home/alcon/Desktop/CNEAT-Trader/src/cneat.o"
+	@echo "... home/alcon/Desktop/CNEAT-Trader/src/cneat.i"
+	@echo "... home/alcon/Desktop/CNEAT-Trader/src/cneat.s"
 .PHONY : help
 
 

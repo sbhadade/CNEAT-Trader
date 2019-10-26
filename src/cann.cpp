@@ -58,8 +58,14 @@ std::vector<int> cann::feed_forward_network::required_for_output(std::vector<int
 
     for (auto i = output.begin(); i != output.end(); i++)
     {
-        s.push_back((*i));
-        required.push_back(*i);
+        if(std::find(s.begin(), s.end(), *i) == s.end())
+        {
+            s.push_back((*i));
+        }
+        if(std::find(required.begin(), required.end(), *i) == required.end())
+        {
+            required.push_back(*i);
+        }
     }
 
     while (true)
@@ -68,13 +74,13 @@ std::vector<int> cann::feed_forward_network::required_for_output(std::vector<int
         std::vector<int> t;
         for (auto i = connections.begin(); i != connections.end(); i++)
         {
-            if (std::find(s.begin(), s.end(), i->from_node) == s.end() && std::find(s.begin(), s.end(), i->to_node) != s.end())
+            if (std::find(s.begin(), s.end(), i->from_node) == s.end() && std::find(s.begin(), s.end(), i->to_node) != s.end() && std::find(t.begin(), t.end(), i->from_node) == t.end() )
             {
                 t.push_back(i->from_node);
             }
         }
 
-        if (t.size() == 0)
+        if (t.empty())
         {
             break;
         }
@@ -82,23 +88,38 @@ std::vector<int> cann::feed_forward_network::required_for_output(std::vector<int
         std::vector<int> layer_nodes;
         for (auto i = t.begin(); i != t.end(); i++)
         {
-            if (std::find(input.begin(), input.end(), *i) == input.end())
+            if (std::find(input.begin(), input.end(), *i) == input.end() && std::find(layer_nodes.begin(), layer_nodes.end(), *i) == layer_nodes.end())
             {
                 layer_nodes.push_back((*i));
             }
         }
 
-        if (layer_nodes.size() == 0)
+        if (layer_nodes.empty())
         {
             break;
         }
 
-        required.insert(required.end(), layer_nodes.begin(), layer_nodes.end());
-        s.insert(s.end(), t.begin(), t.end());
+        // add to required and s
+        for(auto layer_node : layer_nodes)
+        {
+            if(std::find(required.begin(), required.end(), layer_node) == required.end())
+            {
+                required.push_back(layer_node);
+            }
+        }
+        for(auto it_t : t)
+        {
+            if(std::find(s.begin(), s.end(), it_t) == s.end())
+            {
+                s.push_back(it_t);
+            }
+        }
+
+        //required.insert(required.end(), layer_nodes.begin(), layer_nodes.end());
+        //s.insert(s.end(), t.begin(), t.end());
     }
 
     return required;
-
 }
 
 /****************************************************
@@ -122,54 +143,61 @@ std::vector<std::vector<int>> cann::feed_forward_network::feed_forward_layers(st
     std::vector<int> s;
 
     // append inputs to s
-    for (auto i = input.begin(); i != input.end(); i++)
+    for (auto i : input)
     {
-        s.push_back(*i);
+        s.push_back(i);
     }
 
     while (true)
     {
-        std::vector<int> c;
-        for (auto it_conn = connections.begin(); it_conn != connections.end(); it_conn++)
+        std::vector<unsigned int> c;
+        for (auto it_conn : connections)
         {
-            if (std::find(s.begin(), s.end(), it_conn->from_node) != s.end()
-                && std::find(s.begin(), s.end(), it_conn->to_node) == s.end()
-                && std::find(c.begin(), c.end(), it_conn->to_node) == c.end())
+            if (std::find(s.begin(), s.end(), it_conn.from_node) != s.end()
+                && std::find(s.begin(), s.end(), it_conn.to_node) == s.end()
+                && std::find(c.begin(), c.end(), it_conn.to_node) == c.end())
             {
-                c.push_back(it_conn->to_node);
+                c.push_back(it_conn.to_node);
             }
         }
 
 
         std::vector<int> t;
-        for (auto it_c = c.begin(); it_c != c.end(); it_c++)
+        for (auto it_c : c)
         {
             std::vector<bool> vec_all;
-            for (auto it_conn = connections.begin(); it_conn != connections.end(); it_conn++)
+            for (auto it_conn : connections)
             {
-                if (it_conn->to_node == *it_c)
+                if (it_conn.to_node == it_c)
                 {
-                    vec_all.push_back(std::find(s.begin(), s.end(), it_conn->from_node) != s.end());
+                    vec_all.push_back(std::find(s.begin(), s.end(), it_conn.from_node) != s.end());
                 }
             }
 
-            if (std::find(required.begin(), required.end(), *it_c) != required.end()
+            if (std::find(required.begin(), required.end(), it_c) != required.end()
                 && std::find(vec_all.begin(), vec_all.end(), false) == vec_all.end()) {
 
-                if (std::find(t.begin(), t.end(), *it_c) == t.end())
+                if (std::find(t.begin(), t.end(), it_c) == t.end())
                 {
-                    t.push_back(*it_c);
+                    t.push_back(it_c);
                 }
             }
         }
 
-        if (t.size() == 0)
+        if (t.empty())
         {
             break;
         }
 
         layers.push_back(t);
-        s.insert(s.end(), t.begin(), t.end());
+        for(auto it_t : t)
+        {
+            if(std::find(s.begin(), s.end(), it_t) == s.end())
+            {
+                s.push_back(it_t);
+            }
+        }
+        // s.insert(s.end(), t.begin(), t.end());
     }
 
 
@@ -204,14 +232,6 @@ void cann::feed_forward_network::from_genome(cneat::genome &g)
     if (g.input_pins.empty())
     {
         ErrorLog::LogError("INPUT PINS OF GENOME EMPTY", "/home/AnnErrorLog.dat");
-
-        // Populate input and ouptut pins
-        int ipin = -1;
-        for (unsigned int i = 0; i < g.network_info.input_size; i++)
-        {
-            g.input_pins.push_back(ipin);
-            ipin--;
-        }
     }
 
     this->input_keys = g.input_pins;
@@ -227,8 +247,7 @@ void cann::feed_forward_network::from_genome(cneat::genome &g)
         }
     }
 
-    std::vector<std::vector<int>> layers = this->feed_forward_layers(g.input_pins, g.output_pins,
-                                                                     g.connection_genes);
+    std::vector<std::vector<int>> layers = this->feed_forward_layers(g.input_pins, g.output_pins,g.connection_genes);
 
     for (auto layer : layers)
     {
@@ -281,11 +300,7 @@ void cann::feed_forward_network::activate(std::vector<double> &inputs, std::vect
     if (inputs.size() != this->input_keys.size())
     {
         ErrorLog::LogError("Inputs.size() != input_keys.size()", "/home/AnnErrorLog.dat");
-
-        for (auto output : outputs)
-        {
-            output = 0;
-        }
+        throw std::runtime_error("Inputs.size() != input_keys.size()");
     }
 
     //Define
@@ -334,6 +349,9 @@ void cann::feed_forward_network::activate(std::vector<double> &inputs, std::vect
 
             case 2:
                 this->values[it_neuron.node] = act_sin(s * it_neuron.response + it_neuron.bias);
+                break;
+            default:
+                this->values[it_neuron.node] = act_sig(s * it_neuron.response + it_neuron.bias);
                 break;
         }
     }

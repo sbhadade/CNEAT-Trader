@@ -29,7 +29,7 @@ cneat::pool::pool(std::string home_dir, unsigned int input, unsigned int output,
             throw std::runtime_error("Could not open ../config/default_genome.json");
         }
         cereal::JSONInputArchive genome_archive(load_fs);
-        default_Genome.serialize(genome_archive);
+        this->default_Genome.serialize(genome_archive);
     }
     load_fs.close();
     load_fs.clear();
@@ -79,16 +79,6 @@ cneat::pool::pool(std::string home_dir, unsigned int input, unsigned int output,
         std::normal_distribution<> gauss_bias(0.0, this->mutation_rates.bias_mutation_rate);
         std::normal_distribution<> gauss_response(0.0, this->mutation_rates.response_mutation_rate);
 
-        for (size_t us_i = 0; us_i < output; us_i++)
-        {
-            node_gene new_node;
-            new_node.activation_function = 0;
-            new_node.aggregation_function = 0;
-            new_node.bias = gauss_bias(this->generator);
-            new_node.response = gauss_response(this->generator);
-            new_node.key = us_i;
-            new_genome.node_genes.push_back(new_node);
-        }
 
         // Decide how to create the genome
         if (default_Genome.connection_type == "random")
@@ -1110,6 +1100,8 @@ void cneat::pool::rank_globally()
     this->best_fitness = global[0]->fitness;
     this->best_connCnt = global[0]->connection_genes.size();
     this->best_nodeCnt = global[0]->node_genes.size();
+
+    std::cout << "best_key " << global[0]->key << " with fitness " << global[0]->fitness << " and size ( " << global[0]->node_genes.size() << " | " << global[0]->connection_genes.size() << " )" << std::endl;
 
     if (global[0]->fitness > this->max_fitness)
     {

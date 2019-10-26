@@ -1,3 +1,0 @@
-/home/alcon/Desktop/CNEAT-Trader/cmake-build-release/CMakeFiles/rebuild_cache.dir
-/home/alcon/Desktop/CNEAT-Trader/cmake-build-release/CMakeFiles/CNEAT_Trader.dir
-/home/alcon/Desktop/CNEAT-Trader/cmake-build-release/CMakeFiles/edit_cache.dir

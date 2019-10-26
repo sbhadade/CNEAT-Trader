@@ -303,6 +303,21 @@ namespace cneat {
             }
             for (unsigned int i = 0; i < network_info.output_size; i++) {
                 output_pins.push_back(i);
+
+                std::normal_distribution<> gauss_bias(0.0, this->mutation_rates.bias_mutation_rate);
+                std::normal_distribution<> gauss_response(0.0, this->mutation_rates.response_mutation_rate);
+                std::random_device rd;
+                std::mt19937 generator;
+                generator.seed(rd());
+
+                node_gene new_node;
+                new_node.key = i;
+                new_node.activation_function = 0;
+                new_node.aggregation_function = 0;
+                new_node.bias = gauss_bias(generator);
+                new_node.response = gauss_response(generator);
+
+                this->node_genes.push_back(new_node);
             }
 
         }

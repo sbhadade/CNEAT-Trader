@@ -1,6 +1,6 @@
 {
   "hidden": 35,
-  "connection_type": "random",
+  "connection_type": "empty",
   "connect_chance": 0.05,
   "template_mutate": 10
 }

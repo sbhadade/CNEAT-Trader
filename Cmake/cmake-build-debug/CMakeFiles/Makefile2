@@ -74,12 +74,12 @@ preinstall:
 CMakeFiles/CNEAT_Trader.dir/all:
 	$(MAKE) -f CMakeFiles/CNEAT_Trader.dir/build.make CMakeFiles/CNEAT_Trader.dir/depend
 	$(MAKE) -f CMakeFiles/CNEAT_Trader.dir/build.make CMakeFiles/CNEAT_Trader.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/alcon/Desktop/CNEAT-Trader/Cmake/cmake-build-debug/CMakeFiles --progress-num=1,2,3,4 "Built target CNEAT_Trader"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/alcon/Desktop/CNEAT-Trader/Cmake/cmake-build-debug/CMakeFiles --progress-num=1,2,3,4,5,6,7 "Built target CNEAT_Trader"
 .PHONY : CMakeFiles/CNEAT_Trader.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/CNEAT_Trader.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/alcon/Desktop/CNEAT-Trader/Cmake/cmake-build-debug/CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/alcon/Desktop/CNEAT-Trader/Cmake/cmake-build-debug/CMakeFiles 7
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/CNEAT_Trader.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/alcon/Desktop/CNEAT-Trader/Cmake/cmake-build-debug/CMakeFiles 0
 .PHONY : CMakeFiles/CNEAT_Trader.dir/rule
