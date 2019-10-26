@@ -65,7 +65,7 @@ public:
      */
 
     template<class Archive>
-    void serialize(Archive s_Archive) {
+    void serialization(Archive &s_Archive) {
         s_Archive(CEREAL_NVP(outputs),
                   CEREAL_NVP(capital),
                   CEREAL_NVP(leverage),
@@ -224,7 +224,7 @@ class CryptoEval // TODO: implemet remaining functions
      */
 
     template<class Archive>
-    void serialize(Archive s_Archive) {
+    void serialization(Archive s_Archive) {
         s_Archive(CEREAL_NVP(outputs),
                   CEREAL_NVP(capital),
                   CEREAL_NVP(leverage),

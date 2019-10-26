@@ -34,7 +34,7 @@ public:
      *  \param i_Output The amount of outputs.
      */
 
-    TraderPool(int i_Input, int i_Output);
+    TraderPool(std::string home_dir, int i_Input, int i_Output, bool recurrent = false);
 
     /**
      *  Default destructor.
@@ -129,6 +129,34 @@ public:
      */
 
     unsigned int GetOutputSize() noexcept;
+
+    /**
+     *  Get the Key of the best genome
+     *
+     *  \return The Key of the best genome
+     */
+    unsigned int GetBestKey();
+
+    /**
+     * Get the number of nodes in the best genome
+     *
+     * @return the size of node_genes in the best genome
+     */
+    unsigned int GetBestNodeCnt();
+
+    /**
+     * Get the number of connections in the best genome
+     *
+     * @return The size of connection_genes in the best genome
+     */
+    unsigned int GetBestConnCnt();
+
+    /**
+     * get the fitness of the best genome
+     *
+     * @return fitness of the best genome
+     */
+    double GetBestGenomeFitness();
 
 private:
 

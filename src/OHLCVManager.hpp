@@ -38,14 +38,15 @@ namespace OHLCVManager {
      */
 
     std::vector<std::vector<double>> getlocalOHLCV(std::string s_filepath, size_t us_window_size) {
-        std::cerr << "Loading Dataset..." << std::endl;
+        std::cout << "Loading Dataset..." << std::endl;
 
         std::vector<std::vector<double>> data = ConvertCSV::Convert(s_filepath, ',');
 
-        std::cerr << "Vector before: " << data.size() << std::endl;
 
-        for (size_t i = data.size() - 1; i >= us_window_size; --i) {
-            for (size_t j = 1; j <= us_window_size; ++j) {
+        for (size_t i = data.size() - 1; i >= us_window_size; --i)
+        {
+            for (size_t j = 1; j <= us_window_size; ++j)
+            {
                 data[i].insert(data[i].end(), data[i - j].begin(), data[i - j].end());
             }
         }
@@ -54,19 +55,19 @@ namespace OHLCVManager {
         auto it = data.begin();
         auto it_unused = data.begin();
         it_unused += us_window_size;
-
         data.erase(it, it_unused);
-        std::cerr << "Vector after: " << data.size() << std::endl;
 
         size_t lenvec = data[0].size();
 
-        for (size_t i = 0; i < data.size(); i++) {
-            if (lenvec != data[i].size()) {
+        for (size_t i = 0; i < data.size(); i++)
+        {
+            if (lenvec != data[i].size())
+            {
                 std::cerr << "False fucking len in row" << i << std::endl;
             }
         }
 
-        std::cerr << "Finished Loading Dataset" << std::endl;
+        std::cout << "Finished Loading Dataset" << std::endl;
 
         return data;
     }
@@ -80,15 +81,15 @@ namespace OHLCVManager {
      *  \return The dataset section delata requested.
      */
 
-    std::vector<std::vector<double>> getlocalOHLCV_delta(std::string s_filepath, size_t us_window_size) {
+    std::vector<std::vector<double>> getlocalOHLCV_delta(std::string s_filepath, size_t us_window_size)
+    {
         std::cerr << "Loading Dataset..." << std::endl;
-
         std::vector<std::vector<double>> data = ConvertCSV::Convert(s_filepath, ',');
 
-        std::cerr << "Vector before: " << data.size() << std::endl;
-
-        for (size_t i = data.size() - 1; i >= us_window_size; --i) {
-            for (size_t j = 1; j <= us_window_size; ++j) {
+        for (size_t i = data.size() - 1; i >= us_window_size; --i)
+        {
+            for (size_t j = 1; j <= us_window_size; ++j)
+            {
                 // ?????
             }
         }
@@ -99,8 +100,6 @@ namespace OHLCVManager {
         it_unused += us_window_size;
 
         data.erase(it, it_unused);
-        std::cerr << "Vector after: " << data.size() << std::endl;
-
 
         /**
          * Check the length of the datarows
@@ -108,8 +107,10 @@ namespace OHLCVManager {
 
         size_t lenvec = data[0].size();
 
-        for (size_t i = 0; i < data.size(); i++) {
-            if (lenvec != data[i].size()) {
+        for (size_t i = 0; i < data.size(); i++)
+        {
+            if (lenvec != data[i].size())
+            {
                 std::cerr << "False fucking len in row" << i << std::endl;
             }
         }

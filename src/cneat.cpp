@@ -6,7 +6,7 @@
 
 
 
-cneat::pool::pool(unsigned int input, unsigned int output, bool rec){
+cneat::pool::pool(std::string home_dir, unsigned int input, unsigned int output, bool rec){
     this->network_info.input_size = input;
     this->network_info.output_size = output;
     this->network_info.recurrent = rec;
@@ -22,7 +22,7 @@ cneat::pool::pool(unsigned int input, unsigned int output, bool rec){
     std::ifstream load_fs;
 
     {
-        load_fs.open("../config/default_genome.json");
+        load_fs.open(home_dir + "/config/default_genome.json");
 
         if (!load_fs.is_open())
         {
@@ -36,7 +36,7 @@ cneat::pool::pool(unsigned int input, unsigned int output, bool rec){
 
     // Load speciating parameter
     {
-        load_fs.open("../config/default_speciating_parameters.json");
+        load_fs.open(home_dir + "/config/default_speciating_parameters.json");
 
         if (!load_fs.is_open())
         {
@@ -50,7 +50,7 @@ cneat::pool::pool(unsigned int input, unsigned int output, bool rec){
 
     // Load Mutation rates
     {
-        load_fs.open("../config/default_mutation_rates.json");
+        load_fs.open(home_dir + "/config/default_mutation_rates.json");
 
         if (!load_fs.is_open())
         {
@@ -67,16 +67,13 @@ cneat::pool::pool(unsigned int input, unsigned int output, bool rec){
      * a random number from our computer
      */
     generator.seed(rd());
-    std::chrono::high_resolution_clock::time_point s_creationStart;
-
 
     /**
      * Create a basic generation with default genomes
      */
+    std::cout << "Creating population..." << std::endl;
     for (unsigned int i = 0; i < this->speciating_parameters.population; i++)
     {
-        s_creationStart = std::chrono::high_resolution_clock::now();
-
         genome new_genome(this->network_info, this->mutation_rates, this->GetGenomeNbr());
 
         std::normal_distribution<> gauss_bias(0.0, this->mutation_rates.bias_mutation_rate);
@@ -117,9 +114,6 @@ cneat::pool::pool(unsigned int input, unsigned int output, bool rec){
         }
 
         this->add_to_species(new_genome);
-        std::cerr << "Added Genome " << i << " with size: N: " << new_genome.node_genes.size() << " C: " << new_genome.connection_genes.size() << "  to species.  Took ";
-        std::cerr << std::chrono::duration_cast<std::chrono::duration<double>>(std::chrono::high_resolution_clock::now() - s_creationStart).count();
-        std::cerr << " seconds" << std::endl;
     }
 
     /**
@@ -135,6 +129,7 @@ cneat::pool::pool(unsigned int input, unsigned int output, bool rec){
         }
 
     }
+    std::cout << "Population successfully created!" << std::endl;
 
 
     /**
@@ -143,7 +138,6 @@ cneat::pool::pool(unsigned int input, unsigned int output, bool rec){
 
     std::cerr << "Creating new Session directory" << std::endl;
     unsigned int dir_nbr = 0;
-    std::string home_dir = "../res";
     std::string path_temp = home_dir + "/save/test_" + std::to_string(dir_nbr);
 
     while (mkdir(path_temp.c_str(), ACCESSPERMS) != 0)
@@ -1112,9 +1106,10 @@ void cneat::pool::rank_globally()
     });
 
     // Report size of best genome
-    std::cerr << "Best Genome nbr " << global[0]->key << " with size: N: " << global[0]->node_genes.size() << " C: "
-              << global[0]->connection_genes.size();
-    std::cerr << " with fitness: " << global[0]->fitness << std::endl;
+    this->best_key = global[0]->key;
+    this->best_fitness = global[0]->fitness;
+    this->best_connCnt = global[0]->connection_genes.size();
+    this->best_nodeCnt = global[0]->node_genes.size();
 
     if (global[0]->fitness > this->max_fitness)
     {
@@ -1130,9 +1125,7 @@ void cneat::pool::rank_globally()
             cereal::BinaryOutputArchive c_archive(fs);
             global[0]->serialize(c_archive);
         }
-        std::cerr << " Serialized best one" << std::endl;
     }
-    std::cerr << "Last change of fitness in generation: " << this->last_change << std::endl;
 }
 
 
@@ -1290,7 +1283,6 @@ void cneat::pool::remove_stale_species()
         if (it_s->staleness > this->speciating_parameters.stale_species
             && this->species.size() > 1 && it_s->top_fitness < this->max_fitness)
         {
-            std::cerr << "Species with top fitness " << it_s->top_fitness << " is stale" << std::endl;
             this->species.erase(it_s);
 
         } else {
@@ -1446,8 +1438,6 @@ void cneat::pool::new_generation()
 
     }
 
-    std::cerr << "Made " << children.size() << " Children" << std::endl;
-
 
     /*********************************************************************************************************************************
      * Now we add the child genomes to the corresponding species
@@ -1500,7 +1490,6 @@ void cneat::pool::new_generation()
         }
         it_species++;
     }
-
 
     // Increment generation number
     this->generation_number++;

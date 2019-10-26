@@ -18,74 +18,61 @@
 #include "../rapidjson.h"
 
 CEREAL_RAPIDJSON_NAMESPACE_BEGIN
-    namespace internal {
+namespace internal {
 
-        class Double {
-        public:
-            Double() {}
+class Double {
+public:
+    Double() {}
+    Double(double d) : d_(d) {}
+    Double(uint64_t u) : u_(u) {}
 
-            Double(double d) : d_(d) {}
+    double Value() const { return d_; }
+    uint64_t Uint64Value() const { return u_; }
 
-            Double(uint64_t u) : u_(u) {}
+    double NextPositiveDouble() const {
+        CEREAL_RAPIDJSON_ASSERT(!Sign());
+        return Double(u_ + 1).Value();
+    }
 
-            double Value() const { return d_; }
+    bool Sign() const { return (u_ & kSignMask) != 0; }
+    uint64_t Significand() const { return u_ & kSignificandMask; }
+    int Exponent() const { return static_cast<int>(((u_ & kExponentMask) >> kSignificandSize) - kExponentBias); }
 
-            uint64_t Uint64Value() const { return u_; }
+    bool IsNan() const { return (u_ & kExponentMask) == kExponentMask && Significand() != 0; }
+    bool IsInf() const { return (u_ & kExponentMask) == kExponentMask && Significand() == 0; }
+    bool IsNanOrInf() const { return (u_ & kExponentMask) == kExponentMask; }
+    bool IsNormal() const { return (u_ & kExponentMask) != 0 || Significand() == 0; }
+    bool IsZero() const { return (u_ & (kExponentMask | kSignificandMask)) == 0; }
 
-            double NextPositiveDouble() const {
-                CEREAL_RAPIDJSON_ASSERT(!Sign());
-                return Double(u_ + 1).Value();
-            }
+    uint64_t IntegerSignificand() const { return IsNormal() ? Significand() | kHiddenBit : Significand(); }
+    int IntegerExponent() const { return (IsNormal() ? Exponent() : kDenormalExponent) - kSignificandSize; }
+    uint64_t ToBias() const { return (u_ & kSignMask) ? ~u_ + 1 : u_ | kSignMask; }
 
-            bool Sign() const { return (u_ & kSignMask) != 0; }
+    static unsigned EffectiveSignificandSize(int order) {
+        if (order >= -1021)
+            return 53;
+        else if (order <= -1074)
+            return 0;
+        else
+            return static_cast<unsigned>(order) + 1074;
+    }
 
-            uint64_t Significand() const { return u_ & kSignificandMask; }
+private:
+    static const int kSignificandSize = 52;
+    static const int kExponentBias = 0x3FF;
+    static const int kDenormalExponent = 1 - kExponentBias;
+    static const uint64_t kSignMask = CEREAL_RAPIDJSON_UINT64_C2(0x80000000, 0x00000000);
+    static const uint64_t kExponentMask = CEREAL_RAPIDJSON_UINT64_C2(0x7FF00000, 0x00000000);
+    static const uint64_t kSignificandMask = CEREAL_RAPIDJSON_UINT64_C2(0x000FFFFF, 0xFFFFFFFF);
+    static const uint64_t kHiddenBit = CEREAL_RAPIDJSON_UINT64_C2(0x00100000, 0x00000000);
 
-            int Exponent() const {
-                return static_cast<int>(((u_ & kExponentMask) >> kSignificandSize) - kExponentBias);
-            }
+    union {
+        double d_;
+        uint64_t u_;
+    };
+};
 
-            bool IsNan() const { return (u_ & kExponentMask) == kExponentMask && Significand() != 0; }
-
-            bool IsInf() const { return (u_ & kExponentMask) == kExponentMask && Significand() == 0; }
-
-            bool IsNanOrInf() const { return (u_ & kExponentMask) == kExponentMask; }
-
-            bool IsNormal() const { return (u_ & kExponentMask) != 0 || Significand() == 0; }
-
-            bool IsZero() const { return (u_ & (kExponentMask | kSignificandMask)) == 0; }
-
-            uint64_t IntegerSignificand() const { return IsNormal() ? Significand() | kHiddenBit : Significand(); }
-
-            int IntegerExponent() const { return (IsNormal() ? Exponent() : kDenormalExponent) - kSignificandSize; }
-
-            uint64_t ToBias() const { return (u_ & kSignMask) ? ~u_ + 1 : u_ | kSignMask; }
-
-            static unsigned EffectiveSignificandSize(int order) {
-                if (order >= -1021)
-                    return 53;
-                else if (order <= -1074)
-                    return 0;
-                else
-                    return static_cast<unsigned>(order) + 1074;
-            }
-
-        private:
-            static const int kSignificandSize = 52;
-            static const int kExponentBias = 0x3FF;
-            static const int kDenormalExponent = 1 - kExponentBias;
-            static const uint64_t kSignMask = CEREAL_RAPIDJSON_UINT64_C2(0x80000000, 0x00000000);
-            static const uint64_t kExponentMask = CEREAL_RAPIDJSON_UINT64_C2(0x7FF00000, 0x00000000);
-            static const uint64_t kSignificandMask = CEREAL_RAPIDJSON_UINT64_C2(0x000FFFFF, 0xFFFFFFFF);
-            static const uint64_t kHiddenBit = CEREAL_RAPIDJSON_UINT64_C2(0x00100000, 0x00000000);
-
-            union {
-                double d_;
-                uint64_t u_;
-            };
-        };
-
-    } // namespace internal
+} // namespace internal
 CEREAL_RAPIDJSON_NAMESPACE_END
 
 #endif // CEREAL_RAPIDJSON_IEEE754_

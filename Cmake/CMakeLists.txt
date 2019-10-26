@@ -5,10 +5,11 @@ set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O0")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0")
 
-include_directories(../include ../src)
+include_directories(../include ../src ${CURSES_INCLUDE_DIR})
 
 
 find_package(Threads)
+find_package(Curses REQUIRED)
 
 add_executable(CNEAT_Trader
         ../include/convertcsv.hpp
@@ -26,4 +27,4 @@ add_executable(CNEAT_Trader
         ../src/cann.cpp
         ../src/cann.h)
 
-target_link_libraries(CNEAT_Trader ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries(CNEAT_Trader ${CMAKE_THREAD_LIBS_INIT} ${CURSES_LIBRARIES})

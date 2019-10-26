@@ -1,0 +1,7 @@
+{
+    "outputs": 2,
+    "capital": 1000.0,
+    "leverage": 10,
+    "exposure": 0.1,
+    "fee": 0.00125
+}

@@ -20,7 +20,7 @@
  * Called on new and delete.
  **************************************************************************************/
 
-TraderPool::TraderPool(int i_Input, int i_Output) : s_Pool(i_Input, i_Output, false) {
+TraderPool::TraderPool(std::string home_dir, int i_Input, int i_Output, bool recurrent) : s_Pool(home_dir, i_Input, i_Output, recurrent) {
     Reset();
 }
 
@@ -126,4 +126,24 @@ std::string TraderPool::GetSavePath() noexcept {
 
 unsigned int TraderPool::GetOutputSize() noexcept {
     return s_Pool.network_info.output_size;
+}
+
+unsigned int TraderPool::GetBestKey()
+{
+    return s_Pool.best_key;
+}
+
+unsigned int TraderPool::GetBestNodeCnt()
+{
+    return s_Pool.best_nodeCnt;
+}
+
+unsigned int TraderPool::GetBestConnCnt()
+{
+    return s_Pool.best_connCnt;
+}
+
+double TraderPool::GetBestGenomeFitness()
+{
+    return s_Pool.best_fitness;
 }

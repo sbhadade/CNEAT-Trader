@@ -1,7 +1,7 @@
 {
   "crossover_chance": 0.7,
-  "connection_add_chance": 0.7,
-  "connection_delete_chance": 0.7,
+  "connection_add_chance": 0.2,
+  "connection_delete_chance": 0.2,
   "disable_mutation_chance": 0.2,
   "enable_mutation_chance": 0.2,
   "weight_mutation_Rate": 0.5,

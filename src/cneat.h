@@ -484,6 +484,14 @@ namespace cneat {
 
 
         /*************************************************************
+         * Best Genome
+         *************************************************************/
+         unsigned int best_key;
+         double best_fitness;
+         unsigned int best_nodeCnt;
+         unsigned int best_connCnt;
+
+        /*************************************************************
          * Generator for random stuff
          *************************************************************/
         // pool's local random number generator
@@ -497,7 +505,7 @@ namespace cneat {
         /************************************************************
          * Constructor for Pool
          ************************************************************/
-        pool(unsigned int input, unsigned int output, bool rec = false);
+        pool(std::string home_dir, unsigned int input, unsigned int output, bool rec = false);
 
 
         /************************************************************

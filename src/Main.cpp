@@ -20,6 +20,7 @@
 // External
 #include <cereal/archives/json.hpp>
 #include <cereal/archives/binary.hpp>
+#include <ncurses.h>
 
 // Project
 #include "./OHLCVManager.hpp"
@@ -71,6 +72,11 @@ int main(int argc, const char *argv[]) {
     std::vector<std::vector<double>> v_Data;
     std::vector<std::thread> v_Thread;
 
+    // Get home dir
+    std::string execPath(argv[0]);
+    execPath.erase(execPath.find("CNEAT_Trader", 12));
+    std::string home_directory = execPath + "../../res";
+
     // Timestuff
     std::chrono::high_resolution_clock::time_point s_GenerationStart;
     std::chrono::high_resolution_clock::time_point s_EvalStart;
@@ -84,19 +90,29 @@ int main(int argc, const char *argv[]) {
 #ifdef __APPLE__
     chdir("/Users/Jens/Desktop/CNT/res/APPL_ROOT");
 #endif
-    v_Data = OHLCVManager::getlocalOHLCV("../dataset/ForexData/EURUSD/EURUSD240_icmarket_edit.csv", 30);
+    v_Data = OHLCVManager::getlocalOHLCV(home_directory + "/dataset/ForexData/EURUSD/EURUSD240_icmarket_edit.csv", 30);
     unsigned int i_Input = v_Data[0].size(); // = 0
 
 
     // Create thread info
-    TraderPool s_Pool(i_Input, outputs);
+    TraderPool s_Pool(home_directory, i_Input, outputs);
     ThreadSync s_ThreadSync;
     ForexEval s_forexEval;
+
+    // Make archive with config for evaluation
+
+    {
+        std::ifstream fs_evalConfig;
+        fs_evalConfig.open(home_directory + "/config/EvalSettings.json");
+        cereal::JSONInputArchive c_evalConfig(fs_evalConfig);
+        s_forexEval.serialization(c_evalConfig);
+    }
 
     // Start all worker threads needed
     ui_AdditionalThreadCount = std::thread::hardware_concurrency() - 1;
 
-    for (unsigned int i = 0; i < ui_AdditionalThreadCount; ++i) {
+    for (unsigned int i = 0; i < ui_AdditionalThreadCount; ++i)
+    {
         v_Thread.push_back(
                 std::thread(ForexEval::evaluate, s_forexEval, &s_Pool, &s_ThreadSync, std::ref(v_Data), false));
     }
@@ -106,10 +122,22 @@ int main(int argc, const char *argv[]) {
 
     std::cout << "Evaluation in progress... Press CTRL-C to quit." << std::endl << std::endl;
 
+
+    /**
+     * Becuase i am a fancy guy i need curses
+     */
+    initscr();
+    WINDOW * win = newwin(20, 80, 0, 0);
+    mvwaddstr(win, 18, 1, "Evaluation in progress... Press CTRL-C to quit.");
+    std::string cursesUpdate;
+
     // Evaluate until the required fitness was reached
     while (true) {
 
-        std::cout << "***** Running Generation " << s_Pool.GetGeneration() << " *****" << std::endl;
+        cursesUpdate = "***** Running Generation " + std::to_string(s_Pool.GetGeneration()) + " *****";
+        mvwaddstr(win, 1, 1, cursesUpdate.c_str());
+
+
         // Reset
         s_GenerationStart = std::chrono::high_resolution_clock::now();
 
@@ -135,19 +163,66 @@ int main(int argc, const char *argv[]) {
         s_Pool.NewGeneration();
 
         // Print current fitness
-        std::cout << "Current max fitness: " << s_Pool.GetMaxFitness() << std::endl;
-        std::cout << "Total of " << s_Pool.GetSpeciesSize() << " species" << std::endl;
-        std::cout << "Total of " << s_Pool.GetPopulationSize() << " Genomes in Population" << std::endl;
+        cursesUpdate = "Current max fitness: ";
+        mvwaddstr(win, 3, 1, cursesUpdate.c_str());
+        cursesUpdate = std::to_string(s_Pool.GetMaxFitness());
+        mvwaddstr(win, 3, 35, cursesUpdate.c_str());
 
-        std::cout << "Eval time: "
-                  << std::chrono::duration_cast<std::chrono::duration<double>>(s_EvalEnd - s_EvalStart).count()
-                  << " seconds" << std::endl;
-        std::cout << "Evolution time: " << std::chrono::duration_cast<std::chrono::duration<double>>(
-                std::chrono::high_resolution_clock::now() - s_EvolutionStart).count() << " seconds" << std::endl;
-        std::cout << "Generation time: " << std::chrono::duration_cast<std::chrono::duration<double>>(
-                std::chrono::high_resolution_clock::now() - s_GenerationStart).count() << " seconds" << std::endl
-                  << std::endl;
+        cursesUpdate = "Number of Species: ";
+        mvwaddstr(win, 4, 1, cursesUpdate.c_str());
+        cursesUpdate = std::to_string(s_Pool.GetSpeciesSize());
+        mvwaddstr(win, 4, 35, cursesUpdate.c_str());
+
+        cursesUpdate = "Population size: ";
+        mvwaddstr(win, 5, 1, cursesUpdate.c_str());
+        cursesUpdate = std::to_string(s_Pool.GetPopulationSize());
+        mvwaddstr(win, 5, 35, cursesUpdate.c_str());
+
+        cursesUpdate = "*****Best Genome*****";
+        mvwaddstr(win, 7, 1, cursesUpdate.c_str());
+
+        cursesUpdate = "Innovation nbr:";
+        mvwaddstr(win, 8, 1, cursesUpdate.c_str());
+        cursesUpdate = std::to_string(s_Pool.GetBestKey());
+        mvwaddstr(win, 8, 35, cursesUpdate.c_str());
+
+        cursesUpdate = "Fitness: ";
+        mvwaddstr(win, 9, 1, cursesUpdate.c_str());
+        cursesUpdate = std::to_string(s_Pool.GetBestGenomeFitness());
+        mvwaddstr(win, 9, 35, cursesUpdate.c_str());
+
+        cursesUpdate = "Number of nodes:";
+        mvwaddstr(win, 10, 1, cursesUpdate.c_str());
+        cursesUpdate = std::to_string(s_Pool.GetBestNodeCnt());
+        mvwaddstr(win, 10, 35, cursesUpdate.c_str());
+
+        cursesUpdate = "Number of connections:";
+        mvwaddstr(win, 11, 1, cursesUpdate.c_str());
+        cursesUpdate = std::to_string(s_Pool.GetBestConnCnt());
+        mvwaddstr(win, 11, 35, cursesUpdate.c_str());
+
+        cursesUpdate = "Eval-time(sec):";
+        mvwaddstr(win, 13, 1, cursesUpdate.c_str());
+        cursesUpdate = std::to_string(
+                std::chrono::duration_cast<std::chrono::duration<double>>(s_EvalEnd - s_EvalStart).count());
+        mvwaddstr(win, 13, 35, cursesUpdate.c_str());
+
+        cursesUpdate = "Evolution-time(sec):";
+        mvwaddstr(win, 14, 1, cursesUpdate.c_str());
+        cursesUpdate = std::to_string(std::chrono::duration_cast<std::chrono::duration<double>>(
+                std::chrono::high_resolution_clock::now() - s_EvolutionStart).count());
+        mvwaddstr(win, 14, 35, cursesUpdate.c_str());
+
+        cursesUpdate = "Evaltime(sec):";
+        mvwaddstr(win, 15, 1, cursesUpdate.c_str());
+        cursesUpdate = std::to_string(std::chrono::duration_cast<std::chrono::duration<double>>(
+                std::chrono::high_resolution_clock::now() - s_GenerationStart).count());
+        mvwaddstr(win, 15, 35, cursesUpdate.c_str());
+
+        wrefresh(win);
     }
+
+    endwin();
 
     // Stop and join threads.
     s_ThreadSync.SetKillThreads(true);
