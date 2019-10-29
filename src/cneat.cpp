@@ -1073,8 +1073,8 @@ void cneat::pool::rank_globally()
 {
     for (auto s = this->species.begin(); s != this->species.end(); s++)
     {
-        std::sort(s->genomes.begin(), s->genomes.end(), [](genome *&a, genome *&b) -> bool {
-            return a->fitness > b->fitness; // was a->fitness < b->fitness
+        std::sort(s->genomes.begin(), s->genomes.end(), [](genome &a, genome &b) -> bool {
+            return a.fitness > b.fitness; // was a->fitness < b->fitness
         });
     }
 
@@ -1139,7 +1139,6 @@ void cneat::pool::total_average_fitness()
         }
         mfs = mfs / it_specie->genomes.size();
 
-        double db_fitnessmf = (mfs - min_fitness) / fitness_range;
         it_specie->average_fitness = (mfs - min_fitness) / fitness_range;
     }
 }
