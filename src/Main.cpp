@@ -91,7 +91,7 @@ int main(int argc, const char *argv[]) {
 #ifdef __APPLE__
     chdir("/Users/Jens/Desktop/CNT/res/APPL_ROOT");
 #endif
-    v_Data = OHLCVManager::getlocalOHLCV(home_directory + "/dataset/ForexData/EURUSD/EURUSD240_icmarket_edit.csv", 30);
+    v_Data = OHLCVManager::getlocalOHLCV(home_directory + "/dataset/ForexData/EURUSD/EURUSD15_MetaQuots.csv", 30);
     unsigned int i_Input = v_Data[0].size(); // = 0
 
 
