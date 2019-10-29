@@ -127,19 +127,20 @@ int main(int argc, const char *argv[]) {
     /**
      * Becuase i am a fancy guy i need curses
      */
-     /*
+
     initscr();
     WINDOW * win = newwin(20, 80, 0, 0);
     mvwaddstr(win, 18, 1, "Evaluation in progress... Press CTRL-C to quit.");
     std::string cursesUpdate;
-     */
+
     // Evaluate until the required fitness was reached
     while (true) {
 
-        /*
+        // std::cout << "***** Generation " << s_Pool.GetGeneration() << " *****" << std::endl;
+
         cursesUpdate = "***** Running Generation " + std::to_string(s_Pool.GetGeneration()) + " *****";
         mvwaddstr(win, 1, 1, cursesUpdate.c_str());
-        */
+
 
         // Reset
         s_GenerationStart = std::chrono::high_resolution_clock::now();
@@ -166,8 +167,6 @@ int main(int argc, const char *argv[]) {
         s_Pool.NewGeneration();
 
         // Print current fitness
-
-        /*
         cursesUpdate = "Current max fitness: ";
         mvwaddstr(win, 3, 1, cursesUpdate.c_str());
         cursesUpdate = std::to_string(s_Pool.GetMaxFitness());
@@ -225,17 +224,18 @@ int main(int argc, const char *argv[]) {
         mvwaddstr(win, 15, 35, cursesUpdate.c_str());
 
         wrefresh(win);
-        */
 
-        std::cout << "***** Generation " << s_Pool.GetGeneration() << " *****" << std::endl;
+
+        /*
         std::cout << "Current max fitness: " << s_Pool.GetMaxFitness() << std::endl;
         std::cout<< "Total of " << s_Pool.GetSpeciesSize() << " species" << std::endl;
         std::cout << "Total of " << s_Pool.GetPopulationSize() << " Genomes in Population" << std::endl;
 
+        std::cout << "best_key " << s_Pool.GetBestKey() << " with fitness " << s_Pool.GetBestGenomeFitness() << " and size ( " <<s_Pool.GetBestNodeCnt() << " | " << s_Pool.GetBestConnCnt()  << " )" << std::endl;
         std::cout << "Eval time: " <<std::chrono::duration_cast<std::chrono::duration<double>>(s_EvalEnd - s_EvalStart).count() << " seconds" << std::endl;
         std::cout << "Evolution time: " <<std::chrono::duration_cast<std::chrono::duration<double>>(std::chrono::high_resolution_clock::now() - s_EvolutionStart).count() << " seconds" << std::endl;
         std::cout << "Generation time: " << std::chrono::duration_cast<std::chrono::duration<double>>(std::chrono::high_resolution_clock::now() - s_GenerationStart).count() << " seconds" << std::endl << std::endl;
-
+        */
     }
 
     endwin();

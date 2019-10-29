@@ -226,11 +226,12 @@ cneat::genome cneat::pool::crossover(const genome &g1, const genome &g2)
      *  We will look for connection genes with the same key
      */
 
+
     for (auto it_g1 = g1.connection_genes.begin(); it_g1 != g1.connection_genes.end(); it_g1++)
     {
         // Search for the key in g2.connection genes
         auto it_g2 = find_key(g2.connection_genes.begin(), g2.connection_genes.end(), it_g1->key);
-        if (it_g2 == g1.connection_genes.end())
+        if (it_g2 == g1.connection_genes.end() || g2.connection_genes.empty())
         {
             // If we did not find the same key, just keep the connection of g1
             child.connection_genes.push_back(*it_g1);
@@ -1070,52 +1071,36 @@ double cneat::pool::distance(genome &g1, genome &g2)
  ************************************************************************/
 void cneat::pool::rank_globally()
 {
-    std::vector<genome *> global;
     for (auto s = this->species.begin(); s != this->species.end(); s++)
     {
-        for (size_t i = 0; i < (*s).genomes.size(); i++)
-        {
-            global.push_back(&((*s).genomes[i]));
-
-            if (s->genomes[i].input_pins.empty())
-            {
-                // Populate input and ouptut pins
-                int ipin = -1;
-                for (unsigned int us_i = 0; us_i < this->network_info.input_size; us_i++)
-                {
-                    s->genomes[i].input_pins.push_back(ipin);
-                    ipin--;
-                }
-            }
-        }
+        std::sort(s->genomes.begin(), s->genomes.end(), [](genome *&a, genome *&b) -> bool {
+            return a->fitness > b->fitness; // was a->fitness < b->fitness
+        });
     }
 
-    // Sort genomes
-    std::sort(global.begin(), global.end(), [](genome *&a, genome *&b) -> bool {
-        return a->fitness > b->fitness; // was a->fitness < b->fitness
-    });
-
-    // Report size of best genome
-    this->best_key = global[0]->key;
-    this->best_fitness = global[0]->fitness;
-    this->best_connCnt = global[0]->connection_genes.size();
-    this->best_nodeCnt = global[0]->node_genes.size();
-
-    std::cout << "best_key " << global[0]->key << " with fitness " << global[0]->fitness << " and size ( " << global[0]->node_genes.size() << " | " << global[0]->connection_genes.size() << " )" << std::endl;
-
-    if (global[0]->fitness > this->max_fitness)
+    for (auto s : this->species)
     {
-        this->max_fitness = global[0]->fitness;
-        this->last_change = this->generation_number;
-
-        // Write best genome to file
+        if(s.genomes[0].fitness > this->max_fitness)
         {
-            std::ofstream fs;
-            std::string s_filename =
-                    this->session_path + "/genomes/bestGen_" + std::to_string(this->generation_number) + ".genome";
-            fs.open(s_filename, std::ios::binary);
-            cereal::BinaryOutputArchive c_archive(fs);
-            global[0]->serialize(c_archive);
+
+            this->max_fitness = s.genomes[0].fitness;
+            this->last_change = this->generation_number;
+
+            // Write best genome to file
+            {
+                std::ofstream fs;
+                std::string s_filename =
+                        this->session_path + "/genomes/bestGen_" + std::to_string(this->generation_number) + ".genome";
+                fs.open(s_filename, std::ios::binary);
+                cereal::BinaryOutputArchive c_archive(fs);
+                s.genomes[0].serialize(c_archive);
+            }
+
+            // Report size of best genome
+            this->best_key = s.genomes[0].key;
+            this->best_fitness = s.genomes[0].fitness;
+            this->best_connCnt = s.genomes[0].connection_genes.size();
+            this->best_nodeCnt = s.genomes[0].node_genes.size();
         }
     }
 }
