@@ -133,11 +133,12 @@ int main(int argc, const char *argv[]) {
     mvwaddstr(win, 18, 1, "Evaluation in progress... Press CTRL-C to quit.");
     std::string cursesUpdate;
 
+
     // Evaluate until the required fitness was reached
     while (true) {
 
         // std::cout << "***** Generation " << s_Pool.GetGeneration() << " *****" << std::endl;
-
+        werase(win);
         cursesUpdate = "***** Running Generation " + std::to_string(s_Pool.GetGeneration()) + " *****";
         mvwaddstr(win, 1, 1, cursesUpdate.c_str());
 
@@ -165,6 +166,7 @@ int main(int argc, const char *argv[]) {
         s_EvolutionStart = std::chrono::high_resolution_clock::now();
         // We need a new generation
         s_Pool.NewGeneration();
+
 
         // Print current fitness
         cursesUpdate = "Current max fitness: ";
@@ -224,6 +226,7 @@ int main(int argc, const char *argv[]) {
         mvwaddstr(win, 15, 35, cursesUpdate.c_str());
 
         wrefresh(win);
+
 
 
         /*
