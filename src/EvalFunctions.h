@@ -87,7 +87,7 @@ private:
      *  \param close Close reference.
      */
 
-    inline void buyLong(double &quantity, double &open_price, double &close);
+    inline void buyLong(double &current_money, double &quantity, double &open_price, double &close);
 
     /**
      *  Sell Long contract and kill position.
@@ -108,7 +108,7 @@ private:
      *  \param close Close reference.
      */
 
-    inline void buyShort(double &quantity, double &open_price, double &close);
+    inline void buyShort(double &current_money, double &quantity, double &open_price, double &close);
 
     /**
      *  Sell Short contract and kill position.

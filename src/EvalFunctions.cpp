@@ -121,7 +121,7 @@ void ForexEval::evaluate(ForexEval p_ForexEval, TraderPool *p_Pool, ThreadSync *
 
                     // Open new Long Position
                     if (quantity == 0) {
-                        p_ForexEval.buyLong(quantity, open_price, close);
+                        p_ForexEval.buyLong(current_money, quantity, open_price, close);
                     }
 
                         // Close current short position
@@ -144,7 +144,7 @@ void ForexEval::evaluate(ForexEval p_ForexEval, TraderPool *p_Pool, ThreadSync *
 
                     // Open new short position
                     if (quantity == 0) {
-                        p_ForexEval.buyShort(quantity, open_price, close);
+                        p_ForexEval.buyShort(current_money, quantity, open_price, close);
                     }
 
                         // Close existing Long position
@@ -166,9 +166,9 @@ void ForexEval::evaluate(ForexEval p_ForexEval, TraderPool *p_Pool, ThreadSync *
  * Handle buying and selling.
  **************************************************************************************/
 
-void ForexEval::buyLong(double &quantity, double &open_price, double &close) {
-    // Always have a position of 0.5 Lots TODO: make it dynamic
-    quantity = 0.05f;
+void ForexEval::buyLong(double &current_money, double &quantity, double &open_price, double &close) {
+    // Calculate quantity
+    quantity = ((current_money * this->exposure) * this->leverage) / 100000;
     open_price = close;
 }
 
@@ -181,9 +181,9 @@ void ForexEval::sellLong(double &current_money, double &quantity, double &open_p
     open_price = 0.f;
 }
 
-void ForexEval::buyShort(double &quantity, double &open_price, double &close) {
+void ForexEval::buyShort(double &current_money, double &quantity, double &open_price, double &close) {
     // Always sell 0.5 Lots TODO: Make it dynamic
-    quantity = -0.05f;
+    quantity = (((current_money * this->exposure) * this->leverage) / 100000) * -1;
     open_price = close;
 }
 

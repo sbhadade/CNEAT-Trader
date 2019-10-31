@@ -48,35 +48,39 @@ void SignalHandle(int i_Signal) {
  * Program starting point.
  **************************************************************************************/
 
-int main(int argc, const char *argv[]) {
+int main(int argc, const char *argv[])
+{
     std::signal(SIGSEGV, SignalHandle);
-    int outputs;
-    double fitness_threshold;
-    bool gnomeTerm = false;
-
-    // Define vars via argv
-    if(argc == 1)
-    {
-        outputs = 2;
-        fitness_threshold = 2000;
-    }
-    else if(argc == 2){
-        outputs = std::atoi(argv[1]);
-        fitness_threshold = 2000.f;
-    }
-    else{
-        outputs = std::atoi(argv[1]);
-        fitness_threshold = std::atof(argv[2]);
-    }
-
-    // Define
-    std::vector<std::vector<double>> v_Data;
-    std::vector<std::thread> v_Thread;
 
     // Get home dir
     std::string execPath(argv[0]);
     execPath.erase(execPath.find("CNEAT_Trader", 12));
     std::string home_directory = execPath + "../../res";
+
+    int outputs = 2;
+    double fitness_threshold = 2;
+    std::string datapath = home_directory + "/dataset/ForexData/EURUSD/EURUSD15_MetaQuots.csv";
+    int window_size = 120;
+
+    // Define vars via argv
+    for(int i = 1; i <= argc -1 ; i++)
+    {
+        switch(i)
+        {
+            case 1: datapath = argv[1];
+                    break;
+            case 2: window_size = std::atoi(argv[2]);
+                    break;
+            case 3: fitness_threshold = std::atof(argv[1]);
+                    break;
+            case 4: outputs = std::atoi(argv[2]);
+                    break;
+        }
+    }
+
+    // Define
+    std::vector<std::vector<double>> v_Data;
+    std::vector<std::thread> v_Thread;
 
     // Timestuff
     std::chrono::high_resolution_clock::time_point s_GenerationStart;
@@ -91,7 +95,7 @@ int main(int argc, const char *argv[]) {
 #ifdef __APPLE__
     chdir("/Users/Jens/Desktop/CNT/res/APPL_ROOT");
 #endif
-    v_Data = OHLCVManager::getlocalOHLCV(home_directory + "/dataset/ForexData/EURUSD/EURUSD15_MetaQuots.csv", 30);
+    v_Data = OHLCVManager::getlocalOHLCV(datapath, window_size);
     unsigned int i_Input = v_Data[0].size(); // = 0
 
 
@@ -101,7 +105,6 @@ int main(int argc, const char *argv[]) {
     ForexEval s_forexEval;
 
     // Make archive with config for evaluation
-
     {
         std::ifstream fs_evalConfig;
         fs_evalConfig.open(home_directory + "/config/EvalSettings.json");
@@ -111,7 +114,6 @@ int main(int argc, const char *argv[]) {
 
     // Start all worker threads needed
     ui_AdditionalThreadCount = std::thread::hardware_concurrency() - 1;
-
     for (unsigned int i = 0; i < ui_AdditionalThreadCount; ++i)
     {
         v_Thread.push_back(
@@ -121,13 +123,9 @@ int main(int argc, const char *argv[]) {
     // TODO: Condition variable, remove busy loop and counter!
     while (s_ThreadSync.GetWaiting() < ui_AdditionalThreadCount);
 
-    std::cout << "Evaluation in progress... Press CTRL-C to quit." << std::endl << std::endl;
-
-
     /**
      * Becuase i am a fancy guy i need curses
      */
-
     initscr();
     WINDOW * win = newwin(20, 80, 0, 0);
     mvwaddstr(win, 18, 1, "Evaluation in progress... Press CTRL-C to quit.");
@@ -142,10 +140,8 @@ int main(int argc, const char *argv[]) {
         cursesUpdate = "***** Running Generation " + std::to_string(s_Pool.GetGeneration()) + " *****";
         mvwaddstr(win, 1, 1, cursesUpdate.c_str());
 
-
         // Reset
         s_GenerationStart = std::chrono::high_resolution_clock::now();
-
         s_Pool.Reset();
 
         // Evaluate using the main thread
@@ -162,11 +158,9 @@ int main(int argc, const char *argv[]) {
             break;
         }
 
-
-        s_EvolutionStart = std::chrono::high_resolution_clock::now();
         // We need a new generation
+        s_EvolutionStart = std::chrono::high_resolution_clock::now();
         s_Pool.NewGeneration();
-
 
         // Print current fitness
         cursesUpdate = "Current max fitness: ";
